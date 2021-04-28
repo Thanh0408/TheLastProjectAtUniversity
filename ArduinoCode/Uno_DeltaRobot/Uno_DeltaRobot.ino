@@ -17,6 +17,7 @@
 #include <SerialCommand.h>
 SerialCommand sCmd;
 int halfC = 500;
+
 int n_stepX = 0;
 int n_stepY = 0;
 int n_stepZ = 0;
