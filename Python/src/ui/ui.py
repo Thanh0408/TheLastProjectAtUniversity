@@ -9,14 +9,18 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+# import OpenCVforRaspberry
+from OpenCVforRaspberry import *
 
 class Ui_overView(object):
     def setupUi(self, overView):
         overView.setObjectName("overView")
         overView.resize(798, 500)
         overView.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        overView.setAcceptDrops(False)
+        overView.setToolTipDuration(1)
         overView.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
+        overView.setUnifiedTitleAndToolBarOnMac(False)
         self.centralwidget = QtWidgets.QWidget(overView)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
@@ -33,17 +37,17 @@ class Ui_overView(object):
         self.logo = QtWidgets.QLabel(self.frame)
         self.logo.setGeometry(QtCore.QRect(85, 110, 80, 120))
         self.logo.setText("")
-        self.logo.setPixmap(QtGui.QPixmap("/home/thanh/Downloads/LogoHNUni.png"))
+        self.logo.setPixmap(QtGui.QPixmap("/home/thanh/Desktop/TheLastUnivesityProject/Python/img/UniversityLogo.png"))
         self.logo.setScaledContents(True)
         self.logo.setObjectName("logo")
         self.Information = QtWidgets.QTextBrowser(self.frame)
-        self.Information.setGeometry(QtCore.QRect(3, 10, 244, 100))
+        self.Information.setGeometry(QtCore.QRect(3, 10, 244, 90))
         self.Information.setStyleSheet("font: 8pt \"Ubuntu\";")
         self.Information.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.Information.setLineWidth(0)
         self.Information.setObjectName("Information")
         self.projectName = QtWidgets.QTextBrowser(self.frame)
-        self.projectName.setGeometry(QtCore.QRect(3, 270, 244, 40))
+        self.projectName.setGeometry(QtCore.QRect(3, 270, 244, 50))
         font = QtGui.QFont()
         font.setKerning(True)
         self.projectName.setFont(font)
@@ -51,11 +55,11 @@ class Ui_overView(object):
         self.projectName.setLineWidth(0)
         self.projectName.setObjectName("projectName")
         self.textBrowser = QtWidgets.QTextBrowser(self.frame)
-        self.textBrowser.setGeometry(QtCore.QRect(3, 320, 70, 70))
+        self.textBrowser.setGeometry(QtCore.QRect(3, 330, 70, 70))
         self.textBrowser.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.textBrowser.setObjectName("textBrowser")
         self.textBrowser_2 = QtWidgets.QTextBrowser(self.frame)
-        self.textBrowser_2.setGeometry(QtCore.QRect(54, 320, 190, 192))
+        self.textBrowser_2.setGeometry(QtCore.QRect(54, 330, 190, 192))
         self.textBrowser_2.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.textBrowser_2.setObjectName("textBrowser_2")
         self.textBrowser_3 = QtWidgets.QTextBrowser(self.frame)
@@ -139,22 +143,22 @@ class Ui_overView(object):
 "color: white;")
         self.performance.setObjectName("performance")
         self.label_3 = QtWidgets.QLabel(self.page_stop)
-        self.label_3.setGeometry(QtCore.QRect(260, 10, 241, 50))
+        self.label_3.setGeometry(QtCore.QRect(260, 10, 150, 50))
         self.label_3.setStyleSheet("color: white;\n"
 "font: 22pt \"Umpush\";")
         self.label_3.setObjectName("label_3")
         self.num_detected = QtWidgets.QLabel(self.page_stop)
-        self.num_detected.setGeometry(QtCore.QRect(410, 10, 81, 50))
+        self.num_detected.setGeometry(QtCore.QRect(410, 14, 80, 50))
         self.num_detected.setStyleSheet("font: 22pt \"Umpush\";\n"
 "color: white;")
         self.num_detected.setObjectName("num_detected")
         self.label_5 = QtWidgets.QLabel(self.page_stop)
-        self.label_5.setGeometry(QtCore.QRect(260, 60, 260, 50))
+        self.label_5.setGeometry(QtCore.QRect(260, 60, 160, 50))
         self.label_5.setStyleSheet("color: white;\n"
 "font: 22pt \"Umpush\";")
         self.label_5.setObjectName("label_5")
         self.num_done = QtWidgets.QLabel(self.page_stop)
-        self.num_done.setGeometry(QtCore.QRect(380, 60, 67, 50))
+        self.num_done.setGeometry(QtCore.QRect(380, 64, 67, 50))
         self.num_done.setStyleSheet("color: white;\n"
 "font: 22pt \"Umpush\";")
         self.num_done.setObjectName("num_done")
@@ -173,37 +177,39 @@ class Ui_overView(object):
 
     def retranslateUi(self, overView):
         _translate = QtCore.QCoreApplication.translate
-        overView.setWindowTitle(_translate("overView", "Máy phun thuốc diệt cỏ"))
+        overView.setWindowTitle(_translate("overView", "BK-Delta Robot"))
         self.Information.setHtml(_translate("overView", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:11px; margin-bottom:11px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:11pt; color:#000000;\">Đại học Bách khoa Hà Nội</span></p>\n"
-"<p align=\"center\" style=\" margin-top:11px; margin-bottom:11px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:11pt; color:#000000;\">Viện Cơ khí</span></p>\n"
-"<p align=\"center\" style=\" margin-top:11px; margin-bottom:11px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:11pt; color:#000000;\">Bộ môn Công nghệ Chế tạo máy</span></p></body></html>"))
+"<p align=\"center\" style=\" margin-top:11px; margin-bottom:11px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Đại học Bách khoa Hà Nội</span></p>\n"
+"<p align=\"center\" style=\" margin-top:11px; margin-bottom:11px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Viện Cơ khí</span></p>\n"
+"<p align=\"center\" style=\" margin-top:11px; margin-bottom:11px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">Bộ môn Công nghệ Chế tạo máy</span></p></body></html>"))
         self.projectName.setHtml(_translate("overView", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:15px; color:#000000;\">Cải tiến điều khiển BK-Delta robot</span></p></body></html>"))
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Cải tiến điều khiển BK-Delta Robot</p></body></html>"))
         self.textBrowser.setHtml(_translate("overView", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:15px; color:#000000;\">GVHD:</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:15px; color:#000000;\">SVTH:</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">GVHD:</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">SVTH:</p></body></html>"))
         self.textBrowser_2.setHtml(_translate("overView", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:15px; color:#000000;\">Nguyễn Văn Tình</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:15px; color:#000000;\">Lê Quang Thành 2016xxxx</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:15px; color:#000000;\">Nguyễn Văn Phi  2016xxxx</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Nguyễn Văn Tình</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Nguyễn Văn Phi  2016xxxx</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lê Quang Thành 20163702</p></body></html>"))
         self.textBrowser_3.setHtml(_translate("overView", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Helvetica,Arial,sans-serif\'; font-size:15px; text-decoration: underline; color:#000000;\">Đề tài:</span></p></body></html>"))
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" text-decoration: underline;\">Đề tài:</span></p></body></html>"))
         self.start_buttom.setText(_translate("overView", "START"))
         self.name_speed.setText(_translate("overView", "<html><head/><body><p align=\"center\">Chọn tốc độ:</p></body></html>"))
         self.comboBox.setItemText(0, _translate("overView", "1"))
@@ -212,21 +218,31 @@ class Ui_overView(object):
         self.loadin_word.setText(_translate("overView", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; color:#cc0000;\">loading...</span></p></body></html>"))
         self.stop_buttom.setText(_translate("overView", "STOP"))
         self.performance.setText(_translate("overView", "<html><head/><body><p align=\"center\">24%</p></body></html>"))
-        self.label_3.setText(_translate("overView", "Phat hien:"))
+        self.label_3.setText(_translate("overView", "<html><head/><body><p>Phát hiện:</p></body></html>"))
         self.num_detected.setText(_translate("overView", "3"))
-        self.label_5.setText(_translate("overView", "Da diet:"))
+        self.label_5.setText(_translate("overView", "<html><head/><body><p>Đã diệt:</p></body></html>"))
         self.num_done.setText(_translate("overView", "0"))
 
         self.start_buttom.clicked.connect(self.goto)
+        self.stop_buttom.clicked.connect(self.reset)
 
-    def goto(self):
-        self.stackedWidget.setCurrentIndex(1)
+    def goto(self,image,indices):
+        self.stackedWidget.setCurrentIndex(2)
+        listS=[500,400,300]
+        speed = listS[int(self.comboBox.currentText()) - 1]
+        self.num_detected.setText(str(indices))
+        self.image_detect.setPixmap(QtGui.QPixmap(image))
+        if(var1*var2 > 0): 
+            self.stackedWidget.setCurrentIndex(3)
+        #Tspeed()
+
         # start robot
 
         # ok next page
-        self.stackedWidget.setCurrentWidget(2)
+        # self.stackedWidget.setCurrentWidget(2)
+    def reset(self):
+        self.stackedWidget.setCurrentIndex(1)
 
-        
 
 if __name__ == "__main__":
     import sys

@@ -8,13 +8,15 @@ from imutils.video import VideoStream
 import imutils
 import math
 
+var1 = 0
+var2 = 0
 # Cai dat tham so doc weight, config va class name
 ap = argparse.ArgumentParser()
-ap.add_argument('-c', '--config', default='weight_yolo/a.names',
+ap.add_argument('-c', '--config', default='/home/thanh/Desktop/TheLastUnivesityProject/Python/src/imgProcessing/weight_yolo/a.names',
                 help='path to yolo config file')
-ap.add_argument('-w', '--weights', default='weight_yolo/a.weights',
+ap.add_argument('-w', '--weights', default='/home/thanh/Desktop/TheLastUnivesityProject/Python/src/imgProcessing/weight_yolo/a.weights',
                 help='path to yolo pre-trained weights')
-ap.add_argument('-cl', '--classes', default='weight_yolo/a.names',
+ap.add_argument('-cl', '--classes', default='/home/thanh/Desktop/TheLastUnivesityProject/Python/src/imgProcessing/weight_yolo/a.names',
                 help='path to text file containing class names')
 args = ap.parse_args()
 
@@ -59,7 +61,6 @@ def imageToRealLocal(a, b, H1):
     # P1C1,B1P1 tương ứng với độ dài PC,BP ở độ cao H1
     B1P1 = BP * H1/680
     P1C1 = PC * H1/680
-    # print(PC,BP,B1P1,P1C1)
     # A1B1,C1D1 là hai đáy lớn bé của hình thang ở chiều cao H1
     A1B1 = 800*H1/680
     C1D1 = 600*H1/680
@@ -69,14 +70,11 @@ def imageToRealLocal(a, b, H1):
     h1 = h * H1 / 680
     # Bắt đầu tính các thông số để ra tọa độ ở độ cao h1
     # y = (-0.000244*b*b + 0.8*b)*H1/680
-    if (250 < b < 720/2):
-        y = B1P1*b/360 + 15
-    elif (b <= 250):
-        y = B1P1*b/360 + 20
+    if (b < 720/2):
+        y = B1P1*b/360
     else:
         # y = (0.537136*b + 31631/500)*H1/680
         y = B1P1 + P1C1*(b-360)/360
-    # y = h1*b/720
     x1 = A1B1 * a / 1280
     if (a < 1280/2):
         # x4 = x2 + x3
@@ -100,6 +98,7 @@ def imageToRealLocal(a, b, H1):
     xT = x - xc -xd
     return xT, yT
 
+
 def detect_img():
     # Doc tu webcam
     # cap  = VideoStream(src=0).start()
@@ -108,8 +107,6 @@ def detect_img():
     cap.set(4, 720)
 
     # Doc ten cac class
-
-
 
     # Bat dau doc tu webcam
     # i=1
@@ -171,11 +168,15 @@ def detect_img():
         y = box[1]
         w = box[2]
         h = box[3]
-
         #draw_prediction(image, class_ids[i], confidences[i], int(x), int(y), int(x + w), int(y + h))
+    var1 = 1
     return image, confidence, class_ids, boxes, indices
 
-def run(indices, boxes)
+def Tspeed(speed):
+    ser.write("S {speed}")
+    var2 = 1
+
+def run(indices, boxes):
     for i in indices:
         i = i[0]
         box = boxes[i]
@@ -184,7 +185,6 @@ def run(indices, boxes)
         
         # coi như mặt đất cách mặt cơ sở 500
         H1 = 500
-
         # H1 là chiều cao đến mặt rau
         xT,yT = imageToRealLocal(center_x, center_y, H1)
         # coi như delta sẽ làm việc ở độ cao 300

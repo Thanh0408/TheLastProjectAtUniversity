@@ -23,6 +23,8 @@ void setup ()
   sCmd.addCommand("T", angle);
   sCmd.addCommand("H", goHome);
   sCmd.addCommand("DSTT", getDeltaStt);
+  //send speed
+  sCmd.addCommand("S",speed)
 
   noInterrupts();     
   pinMode(19,INPUT);
@@ -41,6 +43,13 @@ void getDeltaStt(void){
   Serial.println(deltaStatus);
 }
 
+void speed(void){
+  deltaStatus = 1;
+  String cmd = "S\n";
+  for(int i = 0; i < cmd.length(); i++){
+    USART2_send_char(cmd[i]);
+  }
+}
 
 void goHome(void){
   deltaStatus = 1;
