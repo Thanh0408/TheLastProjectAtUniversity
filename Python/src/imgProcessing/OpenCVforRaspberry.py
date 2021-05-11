@@ -61,6 +61,7 @@ def imageToRealLocal(a, b, H1):
     # P1C1,B1P1 tương ứng với độ dài PC,BP ở độ cao H1
     B1P1 = BP * H1/680
     P1C1 = PC * H1/680
+    # print(PC,BP,B1P1,P1C1)
     # A1B1,C1D1 là hai đáy lớn bé của hình thang ở chiều cao H1
     A1B1 = 800*H1/680
     C1D1 = 600*H1/680
@@ -70,12 +71,16 @@ def imageToRealLocal(a, b, H1):
     h1 = h * H1 / 680
     # Bắt đầu tính các thông số để ra tọa độ ở độ cao h1
     # y = (-0.000244*b*b + 0.8*b)*H1/680
-    if (b < 720/2):
-        y = B1P1*b/360
+    if (250 < b < 720/2):
+        y = B1P1*b/360 + 15
+    elif (b <= 250):
+        y = B1P1*b/360 + 20
     else:
         # y = (0.537136*b + 31631/500)*H1/680
         y = B1P1 + P1C1*(b-360)/360
+    # y = h1*b/720
     x1 = A1B1 * a / 1280
+    print("y",y)
     if (a < 1280/2):
         # x4 = x2 + x3
         x4 = a/1280*(C1D1 -A1B1) + 100
