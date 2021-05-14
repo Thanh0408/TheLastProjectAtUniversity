@@ -126,7 +126,7 @@ def detect_img():
         # i+=1
         # if i%20==0:
     # Resize va dua khung hinh vao mang predict
-    image = cv2.imread("a.jpg")
+    image = cv2.imread(os.path.join(dirname, '../img/a.jpg'))
 
     Width = image.shape[1]
     Height = image.shape[0]
