@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 # import OpenCVforRaspberry
-from OpenCVforRaspberry import *
+from ../imgProcessing/imOpenCVforRaspberry import *
 
 class Ui_overView(object):
     def setupUi(self, overView):
