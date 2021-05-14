@@ -226,7 +226,8 @@ class Ui_overView(object):
         self.start_buttom.clicked.connect(self.goto)
         self.stop_buttom.clicked.connect(self.reset)
 
-    def goto(self,image,indices):
+    def goto(self):
+        image, confidence, class_ids, boxes, indices = detect_img()
         self.stackedWidget.setCurrentIndex(2)
         listS=[500,400,300]
         speed = listS[int(self.comboBox.currentText()) - 1]

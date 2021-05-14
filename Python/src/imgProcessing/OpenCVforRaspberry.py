@@ -174,7 +174,6 @@ def detect_img():
         w = box[2]
         h = box[3]
         #draw_prediction(image, class_ids[i], confidences[i], int(x), int(y), int(x + w), int(y + h))
-    var1 = 1
     return image, confidence, class_ids, boxes, indices
 
 def Tspeed(speed):
