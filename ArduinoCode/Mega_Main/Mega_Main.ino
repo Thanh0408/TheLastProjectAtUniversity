@@ -71,7 +71,7 @@ void angle(void){
   String theta3 = (arg);
   String cmd = "T " + theta1 + " " + theta2 + " " + theta3 + "\n";
   //USART2_send_string(strdup(cmd.c_str()));
-  
+
   //Serial.println(cmd.c_str);
   for(int i = 0; i < cmd.length(); i++){
     USART2_send_char(cmd[i]);
@@ -104,7 +104,7 @@ void USART2Init(void){
 
 ISR(USART2_RX_vect){
   while (!(UCSR2A & (1 << RXC2))) {};
-  
+
   char ReceivedByte;
   ReceivedByte = UDR2; // Fetch the received byte value into the variable "ByteReceived"
   if(ReceivedByte == 1){

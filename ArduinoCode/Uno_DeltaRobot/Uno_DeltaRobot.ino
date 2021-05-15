@@ -21,6 +21,7 @@ int halfC = 500;
 int n_stepX = 0;
 int n_stepY = 0;
 int n_stepZ = 0;
+bool isSOS=false;
 
 // Hàm điều khiển hướng và số bước của động cơ
 void step(boolean dir, byte dirPin, byte stepperPin, int steps)
@@ -29,15 +30,15 @@ void step(boolean dir, byte dirPin, byte stepperPin, int steps)
   delay(halfC);
   for (int i = 0; i < steps; i++) {
     digitalWrite(stepperPin, HIGH);
-    delayMicroseconds(halfC);  
+    delayMicroseconds(halfC);
     digitalWrite(stepperPin, LOW);
-    delayMicroseconds(halfC);  
+    delayMicroseconds(halfC);
   }
 }
 
 void step2(int stepX, int stepY, int stepZ)
 {
-  if(stepX < 0)               
+  if(stepX < 0)
   {
     //neu step <0 thi xet huong cua set X nguoc chieu kim dong ho)
     digitalWrite(X_DIR, 0);
@@ -46,7 +47,7 @@ void step2(int stepX, int stepY, int stepZ)
   {
     digitalWrite(X_DIR, 1);
   }
-  if(stepY < 0)               
+  if(stepY < 0)
   {
     //neu step <0 thi xet huong cua set Y nguoc chieu kim dong ho)
     digitalWrite(Y_DIR, 0);
@@ -55,7 +56,7 @@ void step2(int stepX, int stepY, int stepZ)
   {
     digitalWrite(Y_DIR, 1);
   }
-  if(stepZ < 0)               
+  if(stepZ < 0)
   {
     //neu step <0 thi xet huong cua set Z nguoc chieu kim dong ho)
     digitalWrite(Z_DIR, 0);
@@ -70,14 +71,18 @@ void step2(int stepX, int stepY, int stepZ)
   int iteration = max(max(stepX, stepY),stepZ);
   for(int i = 0; i < iteration; i++)
   {
+    if (isSOS)
+    {
+      break;
+    }
     digitalWrite(X_STP, (i<stepX));
     digitalWrite(Y_STP, (i<stepY));
     digitalWrite(Z_STP, (i<stepZ));
-    delayMicroseconds(halfC);  
+    delayMicroseconds(halfC);
     digitalWrite(X_STP, LOW);
     digitalWrite(Y_STP, LOW);
     digitalWrite(Z_STP, LOW);
-    delayMicroseconds(halfC);  
+    delayMicroseconds(halfC);
   }
 }
 
@@ -95,28 +100,26 @@ void goHome2()
   n_stepX = 0;
   n_stepY = 0;
   n_stepZ = 0;
-  
+
   while(stopXStt == 1 || stopYStt == 1 || stopZStt == 1){
     //suat xung khi cong tac hanh trinh open
     digitalWrite(X_STP, stopXStt == 1);
     digitalWrite(Y_STP, stopYStt == 1);
     digitalWrite(Z_STP, stopZStt == 1);
-    delayMicroseconds(halfC);  
+    delayMicroseconds(halfC);
     digitalWrite(X_STP, LOW);
     digitalWrite(Y_STP, LOW);
     digitalWrite(Z_STP, LOW);
-    delayMicroseconds(halfC);  
+    delayMicroseconds(halfC);
     //update state cua cong tac hanh trinh
     stopXStt = digitalRead(X_END);
     stopYStt = digitalRead(Y_END);
-    stopZStt = digitalRead(Z_END);   
+    stopZStt = digitalRead(Z_END);
   }
-  
   //reset lai so sung cho 3 dong co
   //n_stepX = n_stepY = n_stepZ = 0;
   Serial.write(1);
-} 
-
+}
 
 void setup() {
   // put your setup code here, to run once:
@@ -125,10 +128,10 @@ void setup() {
   sCmd.addCommand("H", goHome2);
   sCmd.addCommand("S", setSpeed);
   pinMode(PUMP, OUTPUT);
-  
+
   pinMode(X_DIR, OUTPUT);
   pinMode(X_STP, OUTPUT);
-  pinMode(Y_DIR, OUTPUT); 
+  pinMode(Y_DIR, OUTPUT);
   pinMode(Y_STP, OUTPUT);
   pinMode(Z_DIR, OUTPUT);
   pinMode(Z_STP, OUTPUT);
@@ -139,7 +142,7 @@ void setup() {
   pinMode(Y_END, INPUT_PULLUP);
   pinMode(Z_END, INPUT_PULLUP);
   delayMicroseconds(halfC);
- 
+
   goHome2();
   delay(1000);
 }
@@ -152,7 +155,7 @@ void loop() {
 void setSpeed(){
   char *sp;
   sp = sCmd.next();
-  int speed = atoi(sp); 
+  int speed = atoi(sp);
   halfC = speed;
   Serial.write(1);
 }
@@ -181,6 +184,8 @@ void angle(){
   digitalWrite(PUMP, HIGH);
   delay(500);
   digitalWrite(PUMP, LOW);
-  
+
   Serial.write(1);
 }
+
+

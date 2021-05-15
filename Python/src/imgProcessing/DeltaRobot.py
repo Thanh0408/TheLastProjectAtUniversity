@@ -43,5 +43,4 @@ def calcAngle(x, y, z):
         return theta
     else:
         raise ArgumentException("Position failed")
-    
-    
+
