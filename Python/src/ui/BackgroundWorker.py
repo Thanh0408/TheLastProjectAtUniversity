@@ -8,13 +8,13 @@ sys.path.append('../imgProcessing')
 from ImgProClass import *
 
 class worker(threading.Thread):
-    def __init__(self, threadID, name, ui):
+    def __init__(self, indices, boxes, class_ids, ui):
         threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
+        self.indices = indices
+        self.boxes = boxes
         self.ui = ui
-        self.killed = False
-        self.counter=5
+        self.imgProc = ImgProcessing()
+        self.class_ids = class_ids
 
     def run(self):
         print("Starting " + self.name),
@@ -22,7 +22,7 @@ class worker(threading.Thread):
         print("Exiting " + self.name)
 
     def start_robot(self):
-        return 0
+        self.imgProc.run(self.indices, self.boxes, self.class_ids, self.ui)
 
     def kill(self):
         self.killed = True

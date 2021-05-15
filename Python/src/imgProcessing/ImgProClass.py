@@ -186,7 +186,8 @@ class ImgProcessing():
     def Tspeed(self, speed):
         ser.write("S {speed}")
 
-    def run(self, indices, boxes):
+    def run(self, indices, boxes, class_ids, ui):
+        count = 0
         for i in indices:
             i = i[0]
             box = boxes[i]
@@ -203,15 +204,18 @@ class ImgProcessing():
                 theta1, theta2, theta3 = DeltaRobot.reverse(xT, yT, -300)
                 if theta1*theta2*theta3 == -1:
                     continue
-                while True:
-                    print("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
-                    with serial.Serial ("/dev/ttyS0", 9600, timeout=5) as ser:
-                        ser.write("DSTT\n")
-                        time.sleep(1)
-                        status = ser.readLine()
-                        if status.find("0") > 0:
-                            ser.write("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
-                            break
+                # while True:
+                print("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
+                    # with serial.Serial ("/dev/ttyS0", 9600, timeout=5) as ser:
+                    #     ser.write("DSTT\n")
+                    #     time.sleep(1)
+                    #     status = ser.readLine()
+                    #     if status.find("0") > 0:
+                    #         ser.write("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
+                    #         break
+                count = count + 1
+                time.sleep(1)
+                ui.num_done.setText(str(count))
 
             # print(theta1, theta2, theta3)
             # time.sleep(1)

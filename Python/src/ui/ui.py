@@ -16,14 +16,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import *
 from PyQt5.QtCore import QTimer
 # import OpenCVforRaspberry
-from ImgProWorker import *
 from BackgroundWorker import *
-from ThreadHelper import *
+from ImgProClass import *
 
 class Ui_overView(object):
     def __init__(self):
-        self.imgProc = ImgProcWorker(self)
-        self.background_worker = worker(2, "Thread-1", self)
+        self.background_worker = None
+        self.imgProc = ImgProcessing()
 
     def setupUi(self, overView):
         overView.setObjectName("overView")
@@ -240,20 +239,21 @@ class Ui_overView(object):
 
     def btn_start(self):
         self.stackedWidget.setCurrentIndex(1)
+        image, confidence, class_ids, boxes, indices = self.imgProc.detect_img()
+        height, width, channel = image.shape
+        bytesPerLine = 3 * width
+        qImg = QImage(image.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
+        self.num_detected.setText(str(np.array(indices).shape[0]))
+        self.image_detect.setPixmap(QtGui.QPixmap(qImg))
+        self.background_worker = worker(indices, boxes, class_ids, self)
         QTimer.singleShot(10, self.work)
 
     def work(self):
         print('11')
+        self.stackedWidget.setCurrentIndex(2)
         listS=[500,400,300]
         speed = listS[int(self.comboBox.currentText()) - 1]
-        if not self.imgProc.is_alive():
-            self.imgProc = ImgProcWorker(self)
-            self.imgProc.start()
-            self.imgProc.join()
-        self.stackedWidget.setCurrentIndex(2)
-        if not self.background_worker.is_alive():
-            self.background_worker = worker(2, "Thread-1", self)
-            self.background_worker.start()
+        self.background_worker.start()
 
     def update_num_done(num):
         self.num_done.setText(str(num))
