@@ -8,15 +8,18 @@ from imutils.video import VideoStream
 import imutils
 import math
 
+import os
+dirname = os.path.dirname(__file__)
+
 var1 = 0
 var2 = 0
 # Cai dat tham so doc weight, config va class name
 ap = argparse.ArgumentParser()
-ap.add_argument('-c', '--config', default='/home/thanh/Desktop/TheLastUnivesityProject/Python/src/imgProcessing/weight_yolo/a.names',
+ap.add_argument('-c', '--config', default=os.path.join(dirname, 'weight_yolo/a.cfg'),
                 help='path to yolo config file')
-ap.add_argument('-w', '--weights', default='/home/thanh/Desktop/TheLastUnivesityProject/Python/src/imgProcessing/weight_yolo/a.weights',
+ap.add_argument('-w', '--weights', default=os.path.join(dirname, 'weight_yolo/a.weights'),
                 help='path to yolo pre-trained weights')
-ap.add_argument('-cl', '--classes', default='/home/thanh/Desktop/TheLastUnivesityProject/Python/src/imgProcessing/weight_yolo/a.names',
+ap.add_argument('-cl', '--classes', default=os.path.join(dirname, 'weight_yolo/a.names'),
                 help='path to text file containing class names')
 args = ap.parse_args()
 
