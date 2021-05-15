@@ -204,18 +204,18 @@ class ImgProcessing():
                 theta1, theta2, theta3 = DeltaRobot.reverse(xT, yT, -300)
                 if theta1*theta2*theta3 == -1:
                     continue
-                # while True:
-                print("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
-                    # with serial.Serial ("/dev/ttyS0", 9600, timeout=5) as ser:
-                    #     ser.write("DSTT\n")
-                    #     time.sleep(1)
-                    #     status = ser.readLine()
-                    #     if status.find("0") > 0:
-                    #         ser.write("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
-                    #         break
-                count = count + 1
-                time.sleep(1)
-                ui.num_done.setText(str(count))
+                while True:
+                    print("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
+                    with serial.Serial ("/dev/ttyUSB0", 9600, timeout=5) as ser:
+                        ser.write(str.encode("DSTT\n"))
+                        time.sleep(1)
+                        status = ser.readline()
+                        print(status)
+                        if str(status).find('1') > 0:
+                            ser.write("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
+                            count = count + 1
+                            ui.num_done.setText(str(count))
+                            break
 
             # print(theta1, theta2, theta3)
             # time.sleep(1)
