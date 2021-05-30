@@ -46,13 +46,13 @@ class Ui_overView(object):
         self.frame.setMidLineWidth(0)
         self.frame.setObjectName("frame")
         self.logo = QtWidgets.QLabel(self.frame)
-        self.logo.setGeometry(QtCore.QRect(85, 110, 80, 120))
+        self.logo.setGeometry(QtCore.QRect(85, 120, 80, 120))
         self.logo.setText("")
-        self.logo.setPixmap(QtGui.QPixmap("/home/thanh/Desktop/TheLastUnivesityProject/Python/img/UniversityLogo.png"))
+        self.logo.setPixmap(QtGui.QPixmap("/home/pi/Desktop/TheLastUnivesityProject/Python/img/UniversityLogo.png"))
         self.logo.setScaledContents(True)
         self.logo.setObjectName("logo")
         self.Information = QtWidgets.QTextBrowser(self.frame)
-        self.Information.setGeometry(QtCore.QRect(3, 10, 244, 90))
+        self.Information.setGeometry(QtCore.QRect(3, 10, 244, 110))
         self.Information.setStyleSheet("font: 8pt \"Ubuntu\";")
         self.Information.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.Information.setLineWidth(0)
@@ -188,7 +188,7 @@ class Ui_overView(object):
 
     def retranslateUi(self, overView):
         _translate = QtCore.QCoreApplication.translate
-        overView.setWindowTitle(_translate("overView", "BK-Delta Robot"))
+        overView.setWindowTitle(_translate("overView", "Cải tiến hệ thống điều khiển Robot BK-Delta"))
         self.Information.setHtml(_translate("overView", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -200,7 +200,7 @@ class Ui_overView(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Cải tiến điều khiển BK-Delta Robot</p></body></html>"))
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Cải tiến hệ thống điều khiển Robot BK-Delta</p></body></html>"))
         self.textBrowser.setHtml(_translate("overView", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -212,10 +212,10 @@ class Ui_overView(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Ubuntu\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Nguyễn Văn Tình</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">TS. Nguyễn Văn Tình</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Nguyễn Văn Phi  2016xxxx</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lê Quang Thành 20163702</p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Nguyễn Văn Phi ---20163129---</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Lê Quang Thành ---20163702---</p></body></html>"))
         self.textBrowser_3.setHtml(_translate("overView", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -228,7 +228,7 @@ class Ui_overView(object):
         self.comboBox.setItemText(2, _translate("overView", "3"))
         self.loadin_word.setText(_translate("overView", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; color:#cc0000;\">loading...</span></p></body></html>"))
         self.stop_buttom.setText(_translate("overView", "STOP"))
-        self.performance.setText(_translate("overView", "<html><head/><body><p align=\"center\">24%</p></body></html>"))
+        self.performance.setText(_translate("overView", "<html><head/><body><p align=\"center\">0%</p></body></html>"))
         self.label_3.setText(_translate("overView", "<html><head/><body><p>Phát hiện:</p></body></html>"))
         self.num_detected.setText(_translate("overView", "3"))
         self.label_5.setText(_translate("overView", "<html><head/><body><p>Đã diệt:</p></body></html>"))
