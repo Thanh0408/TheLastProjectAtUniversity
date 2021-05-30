@@ -206,13 +206,13 @@ class ImgProcessing():
                     continue
                 while True:
                     print("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
-                    with serial.Serial ("/dev/ttyUSB0", 9600, timeout=5) as ser:
+                    with serial.Serial ("/dev/serial0", 9600, timeout=5) as ser:
                         ser.write(str.encode("DSTT\n"))
                         time.sleep(1)
                         status = ser.readline()
                         print(status)
                         if str(status).find('1') > 0:
-                            ser.write("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3))
+                            ser.write(str.encode("T {:.2f} {:.2f} {:.2f}".format(theta1, theta2, theta3)))
                             count = count + 1
                             ui.num_done.setText(str(count))
                             break
