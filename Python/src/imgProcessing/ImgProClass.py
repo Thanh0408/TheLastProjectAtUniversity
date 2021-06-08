@@ -90,10 +90,10 @@ class ImgProcessing():
             y = B1P1 + P1C1*(b-360)/360
         # y = h1*b/720
         x1 = A1B1 * a / 1280
-        print("y",y)
         if (a < 1280/2):
             # x4 = x2 + x3
             x4 = a/1280*(C1D1 -A1B1) + 100
+            # 100 = 84 = (C1D1-A1B1)/2
             x2 = x4*b/720
             # x2 = x4*y/h1
             x = x1 + x2
@@ -173,6 +173,7 @@ class ImgProcessing():
         indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, nms_threshold)
 
         # Ve cac khung chu nhat quanh doi tuong
+        num_x = 0
         for i in indices:
             i = i[0]
             box = boxes[i]
@@ -181,10 +182,21 @@ class ImgProcessing():
             w = box[2]
             h = box[3]
             image = self.draw_prediction(image, class_ids[i], confidences[i], int(x), int(y), int(x + w), int(y + h))
-        return image, confidence, class_ids, boxes, indices
+            if(class_ids[i] == 0):
+                num_x = num_x + 1
+        return image, confidence, class_ids, boxes, indices, num_x
 
     def Tspeed(self, speed):
-        ser.write("S {speed}")
+        x = 0
+        while(x == 0):
+            x = x + 1
+            with serial.Serial ("/dev/ttyUSB0", 9600, timeout=5) as ser:
+                ser.flushInput()
+                ser.flushOutput()
+                time.sleep(1)
+                ser.write(b"S {:.0f}\n".format(speed))
+                time.sleep(1)
+                ser.close()
 
     def run(self, indices, boxes, class_ids, ui):
         count = 0
@@ -214,7 +226,7 @@ class ImgProcessing():
                         ser.write(b"DSTT\n")
                         status = ser.readline().decode(encoding = 'UTF-8')
                         print('get status: ' + status)
-                        time.sleep(1);
+                        time.sleep(1)
                         ser.close()
                         if status.find('0') >= 0:
                             can_send = True
@@ -232,7 +244,7 @@ class ImgProcessing():
                             num_detected = int(ui.num_detected.text())
                             per = "{:.0f}".format(count/num_detected * 100) + "%"
                             ui.performance.setText(str(per))
-                            time.sleep(1);
+                            time.sleep(1)
                             ser.close()
                             break
             # print(theta1, theta2, theta3)
