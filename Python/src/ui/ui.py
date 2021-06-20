@@ -26,7 +26,8 @@ class Ui_overView(object):
 
     def setupUi(self, overView):
         overView.setObjectName("overView")
-        overView.resize(798, 500)
+        overView.resize(800, 500)
+        overView.setGeometry(QtCore.QRect(100, 80, 800, 500))
         overView.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         overView.setAcceptDrops(False)
         overView.setToolTipDuration(1)
@@ -239,11 +240,12 @@ class Ui_overView(object):
 
     def btn_start(self):
         self.stackedWidget.setCurrentIndex(1)
-        image, confidence, class_ids, boxes, indices = self.imgProc.detect_img()
+        image, confidence, class_ids, boxes, indices, num_x = self.imgProc.detect_img()
         height, width, channel = image.shape
         bytesPerLine = 3 * width
         qImg = QImage(image.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
-        self.num_detected.setText(str(np.array(indices).shape[0]))
+        #self.num_detected.setText(str(np.array(indices).shape[0]))
+        self.num_detected.setText(str(num_x))
         self.image_detect.setPixmap(QtGui.QPixmap(qImg))
         self.background_worker = worker(indices, boxes, class_ids, self)
         QTimer.singleShot(10, self.work)

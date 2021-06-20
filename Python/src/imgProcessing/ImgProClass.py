@@ -132,10 +132,11 @@ class ImgProcessing():
             # i+=1
             # if i%20==0:
         # Resize va dua khung hinh vao mang predict
-        image = cv2.imread(os.path.join(self.dirname, '../../img/a.jpg'))
+        image = cv2.imread(os.path.join(self.dirname, '../../img/c.jpg'))
         Width = image.shape[1]
         Height = image.shape[0]
         scale = 1/255.0
+        print(image.shape)
 
         # nomalize input va thay doi kich thuoc anh
         # the scale factor (1/255 to scale the pixel values to [0..1])
@@ -173,6 +174,7 @@ class ImgProcessing():
         indices = cv2.dnn.NMSBoxes(boxes, confidences, conf_threshold, nms_threshold)
 
         # Ve cac khung chu nhat quanh doi tuong
+        num_x = 0
         for i in indices:
             i = i[0]
             box = boxes[i]
@@ -181,10 +183,21 @@ class ImgProcessing():
             w = box[2]
             h = box[3]
             image = self.draw_prediction(image, class_ids[i], confidences[i], int(x), int(y), int(x + w), int(y + h))
-        return image, confidence, class_ids, boxes, indices
+            if(class_ids[i] == 0):
+                num_x = num_x + 1
+        return image, confidence, class_ids, boxes, indices, num_x
 
     def Tspeed(self, speed):
-        ser.write("S {speed}")
+        x = 0
+        while(x == 0):
+            x = x + 1
+            with serial.Serial ("/dev/ttyUSB0", 9600, timeout=5) as ser:
+                ser.flushInput()
+                ser.flushOutput()
+                time.sleep(1)
+                ser.write(b"S {:.0f}\n".format(speed))
+                time.sleep(1)
+                ser.close()
 
     def run(self, indices, boxes, class_ids, ui):
         count = 0
@@ -223,10 +236,15 @@ class ImgProcessing():
                         with serial.Serial ("/dev/ttyUSB0", 9600, timeout=5) as ser:
                             ser.flushInput()
                             ser.flushOutput()
-                            cmd = "T {:.2f} {:.2f} {:.2f}\n".format(theta1, theta2, theta3)
+                            cmd = "T {:.2f} {:.2f} {:.2f}\n\r".format(theta1, theta2, theta3)
                             print("Sending cmd: " + cmd)
-                            time.sleep(1)
+                            time.sleep(1);
+                            ser.flushOutput()
                             ser.write(str.encode(cmd))
+                            ser.flush()
+                            time.sleep(1);
+                            status = ser.readline().decode(encoding = 'UTF-8')
+                            print('get cmd: ' + status)
                             count = count + 1
                             ui.num_done.setText(str(count))
                             num_detected = int(ui.num_detected.text())
