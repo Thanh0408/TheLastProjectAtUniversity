@@ -19,12 +19,13 @@ void USART2_send_string(char*);
 void setup ()
 {
   Serial.begin(9600);
-  deltaStatus = 1;
+  deltaStatus = 0;
+//  goHome();
   sCmd.addCommand("T", angle);
   sCmd.addCommand("H", goHome);
   sCmd.addCommand("DSTT", getDeltaStt);
   //send speed
-  sCmd.addCommand("S",speed)
+  sCmd.addCommand("S",speed);
 
   noInterrupts();     
   pinMode(19,INPUT);

@@ -90,10 +90,10 @@ class ImgProcessing():
             y = B1P1 + P1C1*(b-360)/360
         # y = h1*b/720
         x1 = A1B1 * a / 1280
-        print("y",y)
         if (a < 1280/2):
             # x4 = x2 + x3
             x4 = a/1280*(C1D1 -A1B1) + 100
+            # 100 = 84 = (C1D1-A1B1)/2
             x2 = x4*b/720
             # x2 = x4*y/h1
             x = x1 + x2
@@ -227,7 +227,7 @@ class ImgProcessing():
                         ser.write(b"DSTT\n")
                         status = ser.readline().decode(encoding = 'UTF-8')
                         print('get status: ' + status)
-                        time.sleep(1);
+                        time.sleep(1)
                         ser.close()
                         if status.find('0') >= 0:
                             can_send = True
@@ -250,7 +250,7 @@ class ImgProcessing():
                             num_detected = int(ui.num_detected.text())
                             per = "{:.0f}".format(count/num_detected * 100) + "%"
                             ui.performance.setText(str(per))
-                            time.sleep(1);
+                            time.sleep(1)
                             ser.close()
                             break
             # print(theta1, theta2, theta3)
