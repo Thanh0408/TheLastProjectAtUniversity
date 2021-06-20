@@ -244,7 +244,6 @@ class Ui_overView(object):
         height, width, channel = image.shape
         bytesPerLine = 3 * width
         qImg = QImage(image.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
-=
         #self.num_detected.setText(str(np.array(indices).shape[0]))
         self.num_detected.setText(str(num_x))
         self.image_detect.setPixmap(QtGui.QPixmap(qImg))

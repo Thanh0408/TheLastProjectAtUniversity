@@ -50,15 +50,15 @@ class ImgProcessing():
     def draw_prediction(self, img, class_id, p, x, y, x_plus_w, y_plus_h):
         label = str(self.classes[class_id]) + ": " +str(int( p* 100)) + "%"
         color = self.COLORS[class_id]
-        cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 2)
-        cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
+        cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 10)
+        cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 10)
         return img
 
     # Ham ve cac hinh chu nhat va ten class
     def draw_target(self, img, class_id, p, x, y, x_plus_w, y_plus_h, color):
         label = str(self.classes[class_id]) + ": " +str(int( p* 100)) + "%"
-        cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 2)
-        cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
+        cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 10)
+        cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 10)
         return img
 
 
