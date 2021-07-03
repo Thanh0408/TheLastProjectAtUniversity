@@ -12,6 +12,7 @@ from imutils.video import VideoStream
 import imutils
 import math
 import os
+from goto import goto, label
 
 
 class ImgProcessing():
@@ -66,11 +67,11 @@ class ImgProcessing():
     def imageToRealLocal(self, a, b, H1):
         # khoảng cách từ mặt cơ sở f đến mặt luống rau là H1
         # P là chân đường phân giác từ camera hạ xuống theo mặt zOy PC=AC*BC/(AB+AC);BP=AB*BC/(AB+AC) coi BPC thằng hàng nhé
-        PC = math.sqrt(680*680 + 200*200)*450/(math.sqrt(680*680 + 650*650) + math.sqrt(680*680 + 200*200))
-        BP = 450 - PC
+        NP = math.sqrt(680*680 + 200*200)*450/(math.sqrt(680*680 + 650*650) + math.sqrt(680*680 + 200*200))
+        MP = 450 - PC
         # P1C1,B1P1 tương ứng với độ dài PC,BP ở độ cao H1
-        B1P1 = BP * H1/680
-        P1C1 = PC * H1/680
+        M1P1 = MP * H1/680
+        N1P1 = NP * H1/680
         # print(PC,BP,B1P1,P1C1)
         # A1B1,C1D1 là hai đáy lớn bé của hình thang ở chiều cao H1
         A1B1 = 800*H1/680
@@ -81,13 +82,30 @@ class ImgProcessing():
         h1 = h * H1 / 680
         # Bắt đầu tính các thông số để ra tọa độ ở độ cao h1
         # y = (-0.000244*b*b + 0.8*b)*H1/680
+
+        """
+        if (b<=360):
+            y=N1P1*b/360
+            if(a < 640):
+                x = H1/680 * 800 *a / 1280 + y/450 *(686-800)(a/1280 - 1/2)
+            else:
+                x = H1/680 * 800 *a / 1280 - y/450 *(800-686)(a/1280 - 1/2)
+        else:
+            y=N1P1+M1P1*(b-360)/360
+            if(a < 640):
+                x = H1/680 * 686 *a / 1280 + y/450 *(600-686)(a/1280 - 1/2)
+            else:
+                x = H1/680 * 686 *a / 1280 - y/450 *(686-600)(a/1280 - 1/2)
+
+        """
+
         if (250 < b < 720/2):
-            y = B1P1*b/360 + 15
+            y = M1P1*b/360 + 15
         elif (b <= 250):
-            y = B1P1*b/360 + 20
+            y = M1P1*b/360 + 20
         else:
             # y = (0.537136*b + 31631/500)*H1/680
-            y = B1P1 + P1C1*(b-360)/360
+            y = M1P1 + N1P1*(b-360)/360
         # y = h1*b/720
         x1 = A1B1 * a / 1280
         if (a < 1280/2):
@@ -199,8 +217,9 @@ class ImgProcessing():
                 time.sleep(1)
                 ser.close()
 
-    def run(self, indices, boxes, class_ids, ui):
+    def run(self, indices, boxes, class_ids, ui, number_stop):
         count = 0
+        number_stop = 0
         for i in indices:
             i = i[0]
             box = boxes[i]
@@ -229,6 +248,8 @@ class ImgProcessing():
                         print('get status: ' + status)
                         time.sleep(1)
                         ser.close()
+                        if number_stop:
+                            goto .end
                         if status.find('0') >= 0:
                             can_send = True
 
@@ -253,6 +274,16 @@ class ImgProcessing():
                             time.sleep(1)
                             ser.close()
                             break
+        
+        label .end
+        with serial.Serial ("/dev/ttyUSB0", 9600, timeout=5) as ser:
+            ser.flushInput()
+            ser.flushOutput()
+            time.sleep(1);
+            ser.write(b"H\n")
+            time.sleep(1);
+            ser.close()
+            break
             # print(theta1, theta2, theta3)
             # time.sleep(1)
 

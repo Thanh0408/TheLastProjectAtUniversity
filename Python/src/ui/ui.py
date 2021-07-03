@@ -251,9 +251,9 @@ class Ui_overView(object):
         QTimer.singleShot(10, self.work)
 
     def work(self):
-        print('11')
         self.stackedWidget.setCurrentIndex(2)
         listS=[500,400,300]
+        number_stop = 0
         speed = listS[int(self.comboBox.currentText()) - 1]
         self.background_worker.start()
 
@@ -262,6 +262,7 @@ class Ui_overView(object):
 
     def reset(self):
         self.stackedWidget.setCurrentIndex(0)
+        number_stop = 1
 
     def release_resource(self):
         self.background_worker.kill()
