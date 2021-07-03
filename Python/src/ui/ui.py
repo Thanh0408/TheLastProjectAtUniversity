@@ -26,6 +26,7 @@ class Ui_overView(object):
 
     def setupUi(self, overView):
         overView.setObjectName("overView")
+        overView.resize(800, 500)
         overView.setGeometry(QtCore.QRect(100, 80, 800, 500))
         overView.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
         overView.setAcceptDrops(False)
@@ -48,7 +49,7 @@ class Ui_overView(object):
         self.logo = QtWidgets.QLabel(self.frame)
         self.logo.setGeometry(QtCore.QRect(85, 120, 80, 120))
         self.logo.setText("")
-        self.logo.setPixmap(QtGui.QPixmap("/home/pi/Desktop/TheLastUnivesityProject/Python/img/UniversityLogo.png"))
+        self.logo.setPixmap(QtGui.QPixmap("/home/pi/Desktop/TheLastProjectAtUnivesity/Python/img/UniversityLogo.png"))
         self.logo.setScaledContents(True)
         self.logo.setObjectName("logo")
         self.Information = QtWidgets.QTextBrowser(self.frame)
@@ -243,7 +244,7 @@ class Ui_overView(object):
         height, width, channel = image.shape
         bytesPerLine = 3 * width
         qImg = QImage(image.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
-        # self.num_detected.setText(str(np.array(indices).shape[0]))
+        #self.num_detected.setText(str(np.array(indices).shape[0]))
         self.num_detected.setText(str(num_x))
         self.image_detect.setPixmap(QtGui.QPixmap(qImg))
         self.background_worker = worker(indices, boxes, class_ids, self)

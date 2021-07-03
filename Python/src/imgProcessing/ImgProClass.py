@@ -50,15 +50,15 @@ class ImgProcessing():
     def draw_prediction(self, img, class_id, p, x, y, x_plus_w, y_plus_h):
         label = str(self.classes[class_id]) + ": " +str(int( p* 100)) + "%"
         color = self.COLORS[class_id]
-        cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 2)
-        cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
+        cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 10)
+        cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 10)
         return img
 
     # Ham ve cac hinh chu nhat va ten class
     def draw_target(self, img, class_id, p, x, y, x_plus_w, y_plus_h, color):
         label = str(self.classes[class_id]) + ": " +str(int( p* 100)) + "%"
-        cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 2)
-        cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
+        cv2.rectangle(img, (x, y), (x_plus_w, y_plus_h), color, 10)
+        cv2.putText(img, label, (x - 10, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 10)
         return img
 
 
@@ -132,10 +132,11 @@ class ImgProcessing():
             # i+=1
             # if i%20==0:
         # Resize va dua khung hinh vao mang predict
-        image = cv2.imread(os.path.join(self.dirname, '../../img/a.jpg'))
+        image = cv2.imread(os.path.join(self.dirname, '../../img/c.jpg'))
         Width = image.shape[1]
         Height = image.shape[0]
         scale = 1/255.0
+        print(image.shape)
 
         # nomalize input va thay doi kich thuoc anh
         # the scale factor (1/255 to scale the pixel values to [0..1])
@@ -235,10 +236,15 @@ class ImgProcessing():
                         with serial.Serial ("/dev/ttyUSB0", 9600, timeout=5) as ser:
                             ser.flushInput()
                             ser.flushOutput()
-                            cmd = "T {:.2f} {:.2f} {:.2f}\n".format(theta1, theta2, theta3)
+                            cmd = "T {:.2f} {:.2f} {:.2f}\n\r".format(theta1, theta2, theta3)
                             print("Sending cmd: " + cmd)
-                            time.sleep(1)
+                            time.sleep(1);
+                            ser.flushOutput()
                             ser.write(str.encode(cmd))
+                            ser.flush()
+                            time.sleep(1);
+                            status = ser.readline().decode(encoding = 'UTF-8')
+                            print('get cmd: ' + status)
                             count = count + 1
                             ui.num_done.setText(str(count))
                             num_detected = int(ui.num_detected.text())
