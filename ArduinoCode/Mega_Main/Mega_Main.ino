@@ -8,24 +8,29 @@
 SerialCommand sCmd;
 
 //bien trang thai cua delta: 1 la dang hoat dong ,0 la k hoat dong
-int deltaStatus;
+int deltaStatus = 0;
 
 void USART2Init(void);
 void angle(void);
 void goHome(void);
 void USART2_send_char(char);
 void USART2_send_string(char*);
+void getDeltaStt(void);
+void set_speed(void);
+void getDeltaStt(void){
+  Serial.println(deltaStatus);
+}
 
 void setup ()
 {
   Serial.begin(9600);
-  deltaStatus = 0;
+  //deltaStatus = 0;
 //  goHome();
   sCmd.addCommand("T", angle);
   sCmd.addCommand("H", goHome);
   sCmd.addCommand("DSTT", getDeltaStt);
   //send speed
-  sCmd.addCommand("S",speed);
+  sCmd.addCommand("S",set_speed);
 
   noInterrupts();     
   pinMode(19,INPUT);
@@ -40,11 +45,8 @@ void loop()
 {
    sCmd.readSerial();
 }
-void getDeltaStt(void){
-  Serial.println(deltaStatus);
-}
 
-void speed(void){
+void set_speed(void){
   deltaStatus = 1;
   String cmd = "S\n";
   for(int i = 0; i < cmd.length(); i++){
@@ -71,6 +73,7 @@ void angle(void){
   arg = sCmd.next();
   String theta3 = (arg);
   String cmd = "T " + theta1 + " " + theta2 + " " + theta3 + "\n";
+   Serial.println(deltaStatus);
   //USART2_send_string(strdup(cmd.c_str()));
 
   //Serial.println(cmd.c_str);

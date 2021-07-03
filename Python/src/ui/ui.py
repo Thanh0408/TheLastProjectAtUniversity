@@ -244,7 +244,7 @@ class Ui_overView(object):
         bytesPerLine = 3 * width
         qImg = QImage(image.data, width, height, bytesPerLine, QImage.Format_RGB888).rgbSwapped()
         # self.num_detected.setText(str(np.array(indices).shape[0]))
-        self.num_detected.setText(str(num_x)
+        self.num_detected.setText(str(num_x))
         self.image_detect.setPixmap(QtGui.QPixmap(qImg))
         self.background_worker = worker(indices, boxes, class_ids, self)
         QTimer.singleShot(10, self.work)
